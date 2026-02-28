@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.example.kotlinjc_camera.ui.theme.KotlinJCCameraTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
