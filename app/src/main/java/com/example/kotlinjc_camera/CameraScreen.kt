@@ -21,6 +21,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import kotlinx.serialization.Serializable
+
+@Serializable
+object Camera
 
 @Composable
 fun CameraScreen() {

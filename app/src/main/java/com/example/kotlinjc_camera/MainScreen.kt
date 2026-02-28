@@ -10,6 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import kotlinx.serialization.Serializable
+
+@Serializable
+object Main
 
 @Composable
 fun MainScreen(innerPadding: PaddingValues) {
