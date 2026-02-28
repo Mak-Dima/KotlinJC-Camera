@@ -38,9 +38,7 @@ class MainActivity : ComponentActivity() {
                         composable<Camera> {
                             CameraScreen(
                                 {currentPhoto = it},
-                                { navigationController.popBackStack() },
-                                { navigationController.navigate(ImageS) }
-
+                                { navigationController.popBackStack() }
                             )
                         }
                         composable<ImageS> {
