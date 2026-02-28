@@ -31,7 +31,9 @@ import kotlinx.serialization.Serializable
 object Camera
 
 @Composable
-fun CameraScreen() {
+fun CameraScreen(
+    onNavigateBack: () -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraController = remember { LifecycleCameraController(context) }
@@ -60,14 +62,14 @@ fun CameraScreen() {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /* TODO: Handle back */ }) {
+            IconButton(onClick = { onNavigateBack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
                     tint = Color.White
                 )
             }
-            IconButton(onClick = { /* TODO: Take picture */ }) {
+            IconButton(onClick = { }) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Take Picture",
@@ -81,5 +83,5 @@ fun CameraScreen() {
 @PreviewScreenSizes
 @Composable
 fun CameraScreenPreview() {
-    CameraScreen()
+    CameraScreen({})
 }

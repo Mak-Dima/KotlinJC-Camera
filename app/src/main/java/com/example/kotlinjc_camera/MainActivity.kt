@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                             innerPadding,
                             { navigationController.navigate(Camera) }
                        ) }
-                        composable<Camera> { CameraScreen() }
+                        composable<Camera> { CameraScreen({navigationController.popBackStack()}) }
                     }
                 }
             }
