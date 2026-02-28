@@ -32,10 +32,20 @@ class MainActivity : ComponentActivity() {
                         navController = navigationController,
                         startDestination = Main
                     ) {
-                        composable<Main> { MainScreen( innerPadding ) { navigationController.navigate(Camera) } }
-                        composable<Camera> { CameraScreen(
-                            {currentPhoto = it},
-                            { navigationController.popBackStack() }) }
+                        composable<Main> {
+                            MainScreen( innerPadding ) { navigationController.navigate(Camera) }
+                        }
+                        composable<Camera> {
+                            CameraScreen(
+                                {currentPhoto = it},
+                                { navigationController.popBackStack() },
+                                { navigationController.navigate(ImageS) }
+
+                            )
+                        }
+                        composable<ImageS> {
+                            ImageScreen(innerPadding, currentPhoto)
+                        }
                     }
                 }
             }

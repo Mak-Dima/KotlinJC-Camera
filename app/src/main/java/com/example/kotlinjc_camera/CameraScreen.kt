@@ -40,7 +40,8 @@ object Camera
 @Composable
 fun CameraScreen(
     onImageSet: (Bitmap) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToImageScreen: () -> Unit,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -77,7 +78,9 @@ fun CameraScreen(
                     tint = Color.White
                 )
             }
-            IconButton(onClick = { capturePhoto(context, cameraController, onImageSet) }) {
+            IconButton(onClick = {
+                capturePhoto(context, cameraController, onImageSet, onNavigateToImageScreen)
+            }) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Take Picture",
@@ -91,7 +94,8 @@ fun CameraScreen(
 private fun capturePhoto(
     context: Context,
     cameraController: LifecycleCameraController,
-    onImageSet: (Bitmap) -> Unit
+    onImageSet: (Bitmap) -> Unit,
+    onNavigateToImageScreen: () -> Unit
 ) {
     val executor = ContextCompat.getMainExecutor(context)
 
@@ -100,6 +104,7 @@ private fun capturePhoto(
             val correctedBitmap = image.toBitmap()
             onImageSet(correctedBitmap)
             image.close()
+            onNavigateToImageScreen()
         }
 
         override fun onError(exception: ImageCaptureException) {
@@ -111,5 +116,5 @@ private fun capturePhoto(
 @PreviewScreenSizes
 @Composable
 fun CameraScreenPreview() {
-    CameraScreen({}, {})
+    CameraScreen({}, {}, {})
 }
