@@ -16,14 +16,17 @@ import kotlinx.serialization.Serializable
 object Main
 
 @Composable
-fun MainScreen(innerPadding: PaddingValues) {
+fun MainScreen(
+    innerPadding: PaddingValues,
+    onNavigateToCamera: () -> Unit
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { onNavigateToCamera() }) {
             Text(text = "Take a picture")
         }
     }
@@ -33,5 +36,5 @@ fun MainScreen(innerPadding: PaddingValues) {
 @Composable
 fun MainScreenPreview() {
     val innerPadding = PaddingValues()
-    MainScreen(innerPadding)
+    MainScreen(innerPadding, {})
 }
