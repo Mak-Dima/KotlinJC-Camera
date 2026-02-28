@@ -1,7 +1,13 @@
 package com.example.kotlinjc_camera
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import kotlinx.serialization.Serializable
 
@@ -32,6 +39,7 @@ object Camera
 
 @Composable
 fun CameraScreen(
+    onImageSet: (Bitmap) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -69,7 +77,7 @@ fun CameraScreen(
                     tint = Color.White
                 )
             }
-            IconButton(onClick = { }) {
+            IconButton(onClick = { capturePhoto(context, cameraController, onImageSet) }) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Take Picture",
@@ -80,8 +88,28 @@ fun CameraScreen(
     }
 }
 
+private fun capturePhoto(
+    context: Context,
+    cameraController: LifecycleCameraController,
+    onImageSet: (Bitmap) -> Unit
+) {
+    val executor = ContextCompat.getMainExecutor(context)
+
+    cameraController.takePicture(executor, object : ImageCapture.OnImageCapturedCallback() {
+        override fun onCaptureSuccess(image: ImageProxy) {
+            val correctedBitmap = image.toBitmap()
+            onImageSet(correctedBitmap)
+            image.close()
+        }
+
+        override fun onError(exception: ImageCaptureException) {
+            Log.e("CAMERA TAG", "Photo capture failed: ${exception.message}", exception)
+        }
+    })
+}
+
 @PreviewScreenSizes
 @Composable
 fun CameraScreenPreview() {
-    CameraScreen({})
+    CameraScreen({}, {})
 }
