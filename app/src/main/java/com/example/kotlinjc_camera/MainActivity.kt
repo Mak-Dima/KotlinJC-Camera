@@ -38,11 +38,14 @@ class MainActivity : ComponentActivity() {
                         composable<Camera> {
                             CameraScreen(
                                 {currentPhoto = it},
-                                { navigationController.popBackStack() }
+                                { navigationController.navigate(ImageS) }
                             )
                         }
                         composable<ImageS> {
-                            ImageScreen(innerPadding, currentPhoto)
+                            ImageScreen(
+                                innerPadding,
+                                currentPhoto
+                            ) { navigationController.popBackStack() }
                         }
                     }
                 }
