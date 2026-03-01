@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                             ImageScreen(
                                 innerPadding,
                                 currentPhoto
-                            ) { navigationController.popBackStack() }
+                            ) { navigationController.navigate(Main) }
                         }
                     }
                 }

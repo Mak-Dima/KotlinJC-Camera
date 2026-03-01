@@ -43,7 +43,7 @@ object ImageS
 fun ImageScreen(
     innerPadding: PaddingValues,
     image: Bitmap? = null,
-    onNavigateBack: () -> Unit
+    onNavigateToMain: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -79,7 +79,7 @@ fun ImageScreen(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Button(onClick = { onNavigateBack() }) {
+                Button(onClick = { onNavigateToMain() }) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Back"
@@ -96,6 +96,7 @@ fun ImageScreen(
                         permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     } else {
                         saveToGallery(context, image)
+                        onNavigateToMain()
                     }
                 }) {
                     Text("Save")
